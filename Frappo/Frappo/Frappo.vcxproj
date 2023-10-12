@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DT et FT.cpp" />
     <ClCompile Include="Frappo.cpp" />
     <ClCompile Include="k-nearest neighbors.cpp" />
   </ItemGroup>
