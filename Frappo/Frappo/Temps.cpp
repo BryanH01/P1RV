@@ -42,6 +42,12 @@ void test() {
     }
 }
 
-// Affichez les valeurs DT et FT
-//std::cout << "Temps d'appui (DT) : " << dt << " ms" << std::endl;
-//std::cout << "Temps entre les touches (FT) : " << ft << " ms" << std::endl;
+#include <fstream>
+
+void read_file() {
+    string str;
+    fstream file;
+    file.open("data.txt", ios::in | ios::out);
+    file >> str;
+    cout << str;
+}

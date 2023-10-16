@@ -34,3 +34,7 @@
 #Editor
 .vs/
 x64/
+
+#others
+data.txt
+rapport/
