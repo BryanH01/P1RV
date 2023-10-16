@@ -130,6 +130,11 @@
     <ClCompile Include="DT et FT.cpp" />
     <ClCompile Include="Frappo.cpp" />
     <ClCompile Include="k-nearest neighbors.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="test.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Temps.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
