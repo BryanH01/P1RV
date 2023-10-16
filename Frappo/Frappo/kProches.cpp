@@ -4,13 +4,6 @@
 
 using namespace std;
 
-//pour sauvegarder la distances avec la personne
-struct Distance
-{
-	double distance;
-	ID* ptr;
-};
-
 // pour faire la sort
 bool inferieur(Distance a, Distance b) {
 	bool i = false;

@@ -131,13 +131,14 @@
     <ClCompile Include="FileHandler.cpp" />
     <ClCompile Include="Frappo.cpp" />
     <ClCompile Include="ID.cpp" />
-    <ClCompile Include="k-nearest neighbors.cpp" />
+    <ClCompile Include="kProches.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Temps.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FileHandler.h" />
     <ClInclude Include="ID.h" />
+    <ClInclude Include="kProches.h" />
     <ClInclude Include="Temps.h" />
   </ItemGroup>
   <ItemGroup>

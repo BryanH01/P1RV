@@ -1,5 +1,7 @@
 #pragma once
+#include <vector>
 
+using namespace std;
 //pour sauvegarder la distances avec la personne
 struct Distance
 {
