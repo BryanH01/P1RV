@@ -41,13 +41,3 @@ void test() {
         }
     }
 }
-
-#include <fstream>
-
-void read_file() {
-    string str;
-    fstream file;
-    file.open("data.txt", ios::in | ios::out);
-    file >> str;
-    cout << str;
-}
