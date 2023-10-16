@@ -2,12 +2,12 @@
 #include <iostream>
 #include <vector>
 
+using namespace std;
 
 class ID {
-private :
+public :
 	std::string personne;
 	std::vector<double> score;
-public :
 	ID();
 	ID(std::string a, std::vector<double> b);
 	void setPersonne(std::string a);
@@ -17,3 +17,5 @@ public :
 	std::vector<double> getScore();
 	std::string getPersonne();
 };
+
+//ostream& operator<<(ostream& os, const ID& id);

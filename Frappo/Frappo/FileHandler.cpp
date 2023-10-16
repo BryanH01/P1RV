@@ -37,3 +37,17 @@ vector<ID> readData() {
     return data;
 
 }
+
+void addData(ID id) {
+    string str;
+    fstream file;
+    file.open("data.txt", ios::app);
+    ostringstream os;
+    os << id.getPersonne() << ' ';
+    for (int i = 0; i < id.getScore().size(); i++) {
+        os << id.getScore()[i] << ' ';
+    }
+    file << os.str() << endl;
+    file.close();
+
+}

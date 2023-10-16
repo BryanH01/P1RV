@@ -9,3 +9,4 @@
 using namespace std;
 
 vector<ID> readData();
+void addData(ID id);
