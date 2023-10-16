@@ -1,67 +1,52 @@
-#include <iostream>
-#include <vector>
-#include <cmath>
-#include <algorithm>
+#include "Temps.h"
+#include "ID.h"
 
-// Structure pour représenter un exemple avec des caractéristiques et une classe
-struct Example {
-    std::vector<double> features;
-    int label;
+using namespace std;
+
+//pour sauvegarder la distances avec la personne
+struct Distance
+{
+	double distance;
+	ID* ptr;
 };
 
-// Fonction pour calculer la distance euclidienne entre deux exemples
-double euclideanDistance(const Example& a, const Example& b) {
-    double sum = 0.0;
-    for (size_t i = 0; i < a.features.size(); ++i) {
-        double diff = a.features[i] - b.features[i];
-        sum += diff * diff;
-    }
-    return std::sqrt(sum);
+// pour faire la sort
+bool inferieur(Distance a, Distance b) {
+	bool i = false;
+	if (a.distance > b.distance) {
+		i = true;
+	}
+	return i;
 }
 
-// Fonction pour prédire la classe d'un nouvel exemple en utilisant K-NN
-int predictKNN(const std::vector<Example>& trainingData, const Example& newExample, int k) {
-    // Calculer les distances entre le nouvel exemple et tous les exemples d'entraînement
-    std::vector<std::pair<double, int>> distances;
-    for (const Example& example : trainingData) {
-        double dist = euclideanDistance(newExample, example);
-        distances.push_back(std::make_pair(dist, example.label));
-    }
+void predictKNN(vector<double> test, vector<ID> data, int k) {
+	vector<Distance> Table;
+	ID id;
+	id.setScore(test);
 
-    // Trier les distances en ordre croissant
-    std::sort(distances.begin(), distances.end());
+	// calculer les distances
+	for (int i = 0; i < data.size(); i++) {
+		Distance d;
+		d.ptr = &data[i];
+		d.distance = id.distance(data[i]);
+		Table.push_back(d);
+	}
 
-    // Compter les votes des k plus proches voisins
-    std::vector<int> classVotes(2, 0); // Supposons qu'il y ait deux classes (0 et 1)
-    for (int i = 0; i < k; ++i) {
-        int vote = distances[i].second;
-        classVotes[vote]++;
-    }
+	// faire la sort
+	for (int i = 0; i < Table.size(); i++) {
+		for (int j = i + 1; j < Table.size(); j++) {
+			if (!inferieur(Table[i], Table[j])) {
+				Distance trans = Table[i];
+				Table[i] = Table[j];
+				Table[j] = trans;
+			}
+		}
+	}
 
-    // Choisir la classe majoritaire
-    int predictedClass = (classVotes[0] > classVotes[1]) ? 0 : 1;
-    return predictedClass;
-}
+	// identifier la personne
+	vector<ID*> kProches;
+	for (int i = 0; i < k; i++) {
+		kProches.push_back(Table[i].ptr);
+	}
 
-int main() {
-    // Exemples d'entraînement
-    std::vector<Example> trainingData = {
-        {{1.0, 2.0}, 0}, // Exemple 1 (caractéristiques, classe)
-        {{2.0, 3.0}, 0}, // Exemple 2
-        {{3.0, 4.0}, 1}, // Exemple 3
-        {{3.0, 2.0}, 1}, // Exemple 4
-        {{4.0, 2.0}, 1}  // Exemple 5
-    };
-
-    // Nouvel exemple à prédire
-    Example newExample = { {2.5, 3.0}, -1 }; // La classe sera prédite
-
-    int k = 3; // Valeur de K
-
-    // Prédire la classe du nouvel exemple
-    int predictedClass = predictKNN(trainingData, newExample, k);
-
-    std::cout << "La classe prédite est : " << predictedClass << std::endl;
-
-    return 0;
 }

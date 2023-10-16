@@ -34,3 +34,7 @@ double ID::distance(ID id) {
 vector<double> ID::getScore() {
 	return score;
 }
+
+string ID::getPersonne() {
+	return personne;
+}
