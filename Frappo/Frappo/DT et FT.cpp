@@ -6,57 +6,48 @@
 using namespace std;
 
 int main() {
-     /*Boucle de capture des frappes de clavier*/
-    while (true) {
-        bool couche = true;
-        int touche = -1;
-        // Mesure du début du temps d'appui (DT)
-        auto start = std::chrono::high_resolution_clock::now();
+    int touchePrecedente = -1;
+    auto startDT = std::chrono::high_resolution_clock::now();
 
-        // Attendre jusqu'à ce que la touche soit relâchée (ou définir votre propre condition)
-        // Par exemple, vous pouvez utiliser un événement clavier ou une autre condition
-        // std::this_thread::sleep_for(std::chrono::milliseconds(100));
-        while (couche) {
-            for (int i = 0; i < 256; ++i) {
-                if (GetAsyncKeyState(i) & 0x8000 && i != VK_SHIFT) {
-                    //std::cout << "Key pressed: " << i << std::endl;
-                    if (touche != i && touche > 0) {
-                        couche = false;
-                    }
-                    touche = i;
-                }
+    while (true) {
+        int toucheActuelle = -1;
+
+        for (int i = 0; i < 256; ++i) {
+            if (GetAsyncKeyState(i) & 0x8000) {
+                // Enregistrez la touche actuelle qui est enfoncée
+                toucheActuelle = i;
             }
         }
-
-        //for (int i = 0; i < 256; ++i) {
-        //    if (GetAsyncKeyState(i) & 0x8000 && i != VK_SHIFT) {
-        //        //std::cout << "Key pressed: " << i << std::endl;
-        //        break;
-        //    }
-        //}
-        //auto dtEnd = std::chrono::high_resolution_clock::now();
-       
         
-        // Mesure de la fin du temps d'appui (DT)
-        auto ftEnd = std::chrono::high_resolution_clock::now();
 
-        // Calcul du temps d'appui (DT) en millisecondes
-        double ft = std::chrono::duration<double, std::milli>(ftEnd - start).count();
-        //double ft = std::chrono::duration<double, std::milli>(dtEnd - start).count();
-
-        // Mesure du temps entre les touches (FT)
-        if (ft > 0) {
-            // Vous pouvez enregistrer ou afficher le temps d'appui (DT) et le temps entre les touches (FT) ici
-            std::cout << "Temps d'appui (FT) : " << ft << " ms" << std::endl;
+        //cout << !(GetAsyncKeyState(toucheActuelle) & 0x8000);
+        if (touchePrecedente != -1 && !(GetAsyncKeyState(toucheActuelle) & 0x8000)) {
+            auto endDT = std::chrono::high_resolution_clock::now();
+            double dt = std::chrono::duration<double, std::milli>(endDT - startDT).count();
+            std::cout << "Temps d'appui (DT) : " << dt << " ms" << std::endl;
+        }
+        if (toucheActuelle != -1) {
+            if (toucheActuelle != touchePrecedente) {
+                // Enregistrez le moment du pressage de la touche pour FT
+                auto ftStart = std::chrono::high_resolution_clock::now();
+                // Calculez le FT
+                double ft = std::chrono::duration<double, std::milli>(ftStart - startDT).count();
+                // Affichez les valeurs DT et FT
+                std::cout << "Temps entre les touches (FT) : " << ft << " ms" << std::endl;
+                startDT = std::chrono::high_resolution_clock::now();
+                touchePrecedente = toucheActuelle;
+            }
+        }
+        else {
+            touchePrecedente = -1;
         }
 
-        // Attendre un court laps de temps entre les captures (à adapter)
-        std::this_thread::sleep_for(std::chrono::milliseconds(10)); // Attendre pendant 10 millisecondes (à adapter)
-    }
-
-    while (true) {
-        
+        std::this_thread::sleep_for(std::chrono::milliseconds(1));
     }
 
     return 0;
 }
+
+// Affichez les valeurs DT et FT
+//std::cout << "Temps d'appui (DT) : " << dt << " ms" << std::endl;
+//std::cout << "Temps entre les touches (FT) : " << ft << " ms" << std::endl;
