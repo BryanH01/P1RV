@@ -9,7 +9,7 @@ private :
 	std::vector<double> score;
 public :
 	ID();
-	ID(std::string a, std::vector<double> b);
+	//ID(std::string a, std::vector<double> b);
 	void setPersonne(std::string a);
 	void setScore(std::vector<double> b);
 
