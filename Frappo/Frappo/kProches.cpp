@@ -1,5 +1,6 @@
 #include "Temps.h"
 #include "ID.h"
+#include "kProches.h"
 
 using namespace std;
 
@@ -44,9 +45,19 @@ void predictKNN(vector<double> test, vector<ID> data, int k) {
 	}
 
 	// identifier la personne
-	vector<ID*> kProches;
+	vector<string> kProches;
 	for (int i = 0; i < k; i++) {
-		kProches.push_back(Table[i].ptr);
+		kProches.push_back(Table[i].ptr->getPersonne());
 	}
-
+	int a = 0; // le nombre le plus grand
+	int b = 0;
+	string Personne;
+	for (int i = 0; i < k; i++) {
+		a = count(kProches.begin(), kProches.end(), kProches[i]);
+		if (a > b) {
+			Personne = kProches[i];
+			b = a;
+		}
+	}
+	cout << "c'est " << Personne << " !" << endl;
 }
