@@ -51,3 +51,14 @@ void addData(ID id) {
     file.close();
 
 }
+
+string readFile(string fileName) {
+
+    string str;
+    fstream file;
+    file.open(fileName, ios::in | ios::out);
+    getline(file, str);
+    file.close();
+    return str;
+
+}

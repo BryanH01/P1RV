@@ -18,9 +18,6 @@
     <ClCompile Include="Frappo.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="k-nearest neighbors.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
     <ClCompile Include="DT et FT.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
@@ -36,6 +33,9 @@
     <ClCompile Include="ID.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="kProches.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Temps.h">
@@ -47,9 +47,15 @@
     <ClInclude Include="ID.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+    <ClInclude Include="kProches.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="data.txt">
+      <Filter>Fichiers de ressources</Filter>
+    </Text>
+    <Text Include="texte.txt">
       <Filter>Fichiers de ressources</Filter>
     </Text>
   </ItemGroup>
