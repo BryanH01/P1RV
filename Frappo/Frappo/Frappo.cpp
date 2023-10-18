@@ -16,6 +16,10 @@ void Identification() {
 	cout << "entrer le k :";
 	cin >> k;
 	vector<double> score = calculScore(&DT, &FT);
+	for (int i = 0; i < score.size(); i++) {
+		cout << score[i] << " ";
+	}
+	cout << endl;
 	vector<ID> id = readData();
 	predictKNN(score, id, k);
 }

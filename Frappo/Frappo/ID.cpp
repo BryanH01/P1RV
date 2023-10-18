@@ -23,12 +23,16 @@ void ID::setScore(vector<double> b) {
 }
 
 double ID::distance(ID id) {
-	double diff = 0.0;
+	double dist = 0.0;
+	double diff;
 	for (int i = 0; i < score.size(); i++) {
 		diff = score[i] - id.getScore()[i];
-		diff += diff * diff;
+		if (score[i] < 1) {
+			diff *= 500;
+		}
+		dist += diff * diff;
 	}
-	return sqrt(diff);
+	return sqrt(dist);
 }
 
 vector<double> ID::getScore() {
