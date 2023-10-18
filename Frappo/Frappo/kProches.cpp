@@ -7,7 +7,7 @@ using namespace std;
 // pour faire la sort
 bool inferieur(Distance a, Distance b) {
 	bool i = false;
-	if (a.distance > b.distance) {
+	if (a.distance < b.distance) {
 		i = true;
 	}
 	return i;
@@ -35,6 +35,10 @@ void predictKNN(vector<double> test, vector<ID> data, int k) {
 				Table[j] = trans;
 			}
 		}
+	}
+
+	for (int i = 0; i < Table.size();i++) {
+		cout << Table[i].ptr->getPersonne() << ": " << Table[i].distance << endl;
 	}
 
 	// identifier la personne
