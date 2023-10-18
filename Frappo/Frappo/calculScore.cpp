@@ -5,9 +5,18 @@
 
 using namespace std;
 
+
+void nettoyage(vector<double>* t) {
+	remove_if(t->begin(), t->end(), [](const double& x) { return x >= 500; });
+}
+
 vector<double> calculScore(vector<double>* DT, vector<double>* FT) {
 	vector<double> score;
 	// score : moyenne de DT, moyenne de FT, mediane de DT, mediane de FT, variance de DT, . de FT, méthode de Hocquet (cf. note)
+
+	//nettotage
+	nettoyage(DT);
+	nettoyage(FT);
 
 	// moyenne 
 	score.push_back(moyenne(DT));
@@ -50,10 +59,10 @@ double variance(vector<double>* t) {
 double Hocquet(vector<double>* t) {
 	double mean = moyenne(t);
 	double stdev = variance(t);
-	double Hocquet = 1;
+	double Hocquet = 0;
 	for (int i = 0; i < t->size(); i++) {
 		double k = -abs((*t)[i] - mean) / stdev;
-		Hocquet -= exp(k);
+		Hocquet += exp(k);
 	}
-	return Hocquet;
+	return 1-Hocquet/t->size();
 }

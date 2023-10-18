@@ -19,7 +19,9 @@ void test() {
     vector<std::chrono::time_point<std::chrono::high_resolution_clock>> temps;
 
     while (true) {
+
         for (int i = 0; i < 256; ++i) {
+            //if (i != 160 && i != 162 && i != 164 && i != 165)
             if (GetAsyncKeyState(i) & 0x8000) {
                 // Enregistrez la touche actuelle qui est enfoncée
                 cout << "touche : " << i << endl;
@@ -59,11 +61,13 @@ void mesure(vector<double>* DT, vector<double>* FT) {
     bool enCours = true;
 
     while (enCours) {
-        for (int i = 0; i < 256; ++i) {
+        if (GetAsyncKeyState(13) & 0x8000) { // Entrée, arrête la mesure
+            enCours = false;
+        }
+        for (int i = 32; i < 256; ++i) {
+            if (i != 160 && i != 162 && i != 164 && i != 165)
             if (GetAsyncKeyState(i) & 0x8000) {
-                if (i == 13) { // Entrée, arrête la mesure
-                    enCours = false;
-                }
+                
                 // Enregistrez la touche actuelle qui est enfoncée
                 vector<int>::iterator it = find(touches.begin(), touches.end(), i);
                 if (it == touches.end()) {

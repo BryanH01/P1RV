@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="calculScore.cpp" />
     <ClCompile Include="DT et FT.cpp" />
     <ClCompile Include="FileHandler.cpp" />
     <ClCompile Include="Frappo.cpp" />
@@ -136,6 +137,7 @@
     <ClCompile Include="Temps.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="calculScore.h" />
     <ClInclude Include="FileHandler.h" />
     <ClInclude Include="ID.h" />
     <ClInclude Include="kProches.h" />
