@@ -12,6 +12,9 @@ vector<ID> readData() {
     fstream file;
     file.open("data.txt", ios::in | ios::out);
     while (getline(file, str)) {
+        if (str[0] == '#') {
+            continue;
+        }
         cout << str << endl;
         string name = str.substr(0, str.find(' '));
         str.erase(0, str.find(" ") + 1);

@@ -7,6 +7,23 @@
 
 using namespace std;
 
+void Enregistrement() {
+	string name;
+	cout << "Frappologie" << endl;
+	cout << "Veuillez entrer votre nom : ";
+	cin >> name;
+	vector<double> DT, FT;
+	mesure(&DT,&FT);
+	// remove first FT and last FT and DT
+	FT.erase(FT.begin());
+	DT.pop_back();
+	FT.pop_back();
+	vector<double> scores;
+	scores = calculScore(&DT, &FT);
+	ID personne(name, scores);
+	addData(personne);
+}
+
 void Identification() {
 	vector<double> DT, FT;
 	mesure(&DT, &FT);
