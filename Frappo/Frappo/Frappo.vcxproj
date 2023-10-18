@@ -139,6 +139,7 @@
   <ItemGroup>
     <ClInclude Include="calculScore.h" />
     <ClInclude Include="FileHandler.h" />
+    <ClInclude Include="Frappo.h" />
     <ClInclude Include="ID.h" />
     <ClInclude Include="kProches.h" />
     <ClInclude Include="Temps.h" />

@@ -96,3 +96,4 @@ void mesure(vector<double>* DT, vector<double>* FT) {
         }
     }
 }
+
