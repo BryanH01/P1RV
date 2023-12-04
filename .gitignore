@@ -35,7 +35,11 @@
 .vs/
 x64/
 Debug/
+*.filters
+*.vcxproj
+*.user
 
 #others
 data.txt
 rapport/
+*.ttf
