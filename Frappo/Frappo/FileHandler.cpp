@@ -63,5 +63,26 @@ string readFile(string fileName) {
     getline(file, str);
     file.close();
     return str;
+}
 
+string readFileFrom(string fileName, int line, int maxLength) {
+    string str = "";
+    string stri;
+    fstream file;
+    file.open(fileName, ios::in | ios::out);
+
+    // pass the begining of the file to line [line]
+    for (int i = 0; i < line; i++) {
+        getline(file, stri);
+    }
+    // get text
+    getline(file, stri);
+    str += stri;
+    while (str.size() < maxLength) {
+        getline(file, stri);
+        str += ' ' + stri;
+    }
+    
+    file.close();
+    return str;
 }
