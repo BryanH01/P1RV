@@ -9,13 +9,13 @@ const string ARIAL = "Arial.ttf";
 const string FIXEDSYS = "FSEX302.ttf";
 
 
-string removeLast(sf::String p) {
+string removeLast(string p) {
     string erased = "";
-    int length = p.getSize();
+    int length = p.size();
     if (length <2) {
         return "";
     }
-    for (int i = 0; i < p.getSize()-1;i++) {
+    for (int i = 0; i < p.size()-1;i++) {
         erased += p[i];
     }
     return erased;
@@ -91,6 +91,7 @@ void affiche() {
     //text2.setOrigin(rc.width / 2, rc.height / 2);
     text2.setPosition(sf::Vector2f(200, 300));
 
+    string entree = "";
     Text text3 = text2;
     text3.setString("");
     text3.setFillColor(Color::White);
@@ -134,15 +135,17 @@ void affiche() {
             cout << touche + lastTouche << endl;
             lastTouche = touche;
             if (touche == "backspace") {
-                text3.setString(removeLast(text3.getString()));
+                entree = removeLast(entree);
             } else {
-                text3.setString(text3.getString() + touche);
+                entree += touche;
             }
-            if (text3.getString() == text2.getString().substring(0, text3.getString().getSize())) {
+
+            if (entree == texte.substr(0, entree.size())) {
                 text3.setFillColor(Color::Green);
             } else {
                 text3.setFillColor(Color::Red);
             }
+            text3.setString(formatText(entree));
             
             //cout << touche + lastTouche << endl;
         }
