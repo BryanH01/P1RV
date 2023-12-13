@@ -4,62 +4,13 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 
 #include "FileHandler.h"
+#include "Utils.h"
 
 const string ARIAL = "Arial.ttf";
 const string FIXEDSYS = "FSEX302.ttf";
 const string TEXTE = "livre2.txt";
 const int LEN_TEXTE = 460;
 const int LEN_TEST = 10;
-
-
-string removeLast(string p) {
-    string erased = "";
-    int length = p.size();
-    if (length <2) {
-        return "";
-    }
-    for (int i = 0; i < p.size()-1;i++) {
-        erased += p[i];
-    }
-    return erased;
-}
-
-
-string formatText(string text, int maxLength = 60) {
-    string newText;
-    int compt = 0;
-    string word = "";
-    for (char& c : text) {
-        compt += 1;
-        if (c == ' ') {
-            if (compt > maxLength) {
-                newText += "\n" + word;
-                compt = 0;
-            } else {
-                newText += " " + word;
-            }
-            word = "";
-        } else {
-            word += c;
-        }
-    }
-    newText += " " + word;
-    newText.erase(0,1);
-    return newText;
-}
-
-string copyFormatText(string text, string ref) {
-    string newText;
-    for (int i = 0; i < text.size(); i++) {
-        if (text[i] == ' ' and ref[i] == '\n') {
-            newText += '\n';
-        }
-        else {
-            newText += text[i];
-        }
-    }
-    return newText;
-}
 
 
 void afficheTexte(bool* enCours) {
@@ -79,7 +30,7 @@ void afficheTexte(bool* enCours) {
     text.setStyle(sf::Text::Bold | sf::Text::Underlined);
     Text text2;
     text2.setString(formatText(texte));
-    cout << formatText(texte) << endl;
+    //cout << formatText(texte) << endl;
     text2.setFont(font);
     text2.setCharacterSize(36); // in pixels, not points!
     text2.setFillColor(Color(127,127,127));
@@ -114,21 +65,21 @@ void afficheTexte(bool* enCours) {
         }
         if (event.type == Event::TextEntered) {
             if (event.text.unicode) {
-                std::cout << "ASCII character typed: " << static_cast<char>(event.text.unicode) << event.text.unicode << std::endl;
+                //std::cout << "ASCII character typed: " << static_cast<char>(event.text.unicode) << event.text.unicode << std::endl;
                 if (event.text.unicode == 8) {
                     touche = "backspace";
                 }
                 else {
                 touche = static_cast<char>(event.text.unicode);
                 }
-                cout << touche << endl;
+                //cout << touche << endl;
             }
         } else {
             lastTouche = "";
             touche = "";
         }
         if (touche != lastTouche) {
-            cout << touche + lastTouche << endl;
+            //cout << touche + lastTouche << endl;
             lastTouche = touche;
             if (touche == "backspace") {
                 entree = removeLast(entree);
@@ -145,20 +96,10 @@ void afficheTexte(bool* enCours) {
             
             //cout << touche + lastTouche << endl;
         }
-        if (entree == texte) {
+        if (entree == texte or !*enCours) {
             window.close();
         }
     }
     *enCours = false;
     std::cout << string(text3.getString());
 }
-
-Font getFont(string name) {
-    Font font;
-    if (!font.loadFromFile(name))
-    {
-        cout << "erreur" << endl;
-    }
-    return font;
-}
-

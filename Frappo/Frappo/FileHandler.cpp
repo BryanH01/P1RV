@@ -95,6 +95,7 @@ string readFileFrom(string fileName, int line, int maxLength) {
     }
 
     // remove traling whitespace if there is one
-    const auto strEnd = str.find_last_not_of(" ");
-    return stri.substr(0, strEnd);
+    const auto strEnd = stri.find_last_not_of(" ");
+    stri = stri.substr(0, strEnd+1);
+    return stri;
 }
