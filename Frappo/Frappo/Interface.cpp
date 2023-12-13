@@ -69,7 +69,7 @@ Text toText(string tex) {
 void affiche() {
     RenderWindow window(VideoMode(1600,900), "My window");
     //RenderWindow window(sf::VideoMode(1000,1000), "My window");
-    string texte = readFileFrom("livre.txt", 2);
+    string texte = readFileFrom("livre.txt", 2, 10);
 
     Text text;
     Font font = getFont(FIXEDSYS);
@@ -148,6 +148,9 @@ void affiche() {
             text3.setString(formatText(entree));
             
             //cout << touche + lastTouche << endl;
+        }
+        if (entree == texte) {
+            window.close();
         }
     }
     std::cout << string(text3.getString());
