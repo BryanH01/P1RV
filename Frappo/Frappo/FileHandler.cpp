@@ -52,11 +52,9 @@ void addData(ID id) {
     }
     file << os.str() << endl;
     file.close();
-
 }
 
 string readFile(string fileName) {
-
     string str;
     fstream file;
     file.open(fileName, ios::in | ios::out);
@@ -82,7 +80,21 @@ string readFileFrom(string fileName, int line, int maxLength) {
         getline(file, stri);
         str += ' ' + stri;
     }
-    
-    file.close();
-    return str;
+
+    // remove double space
+    char lastChar = NULL;
+    stri = "";
+    for (char& c : str) {
+        if (c == ' ' and lastChar == ' ') {
+            continue;
+        }
+        else {
+            lastChar = c;
+            stri += c;
+        }
+    }
+
+    // remove traling whitespace if there is one
+    const auto strEnd = str.find_last_not_of(" ");
+    return stri.substr(0, strEnd);
 }

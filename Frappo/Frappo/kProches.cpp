@@ -13,7 +13,7 @@ bool inferieur(Distance a, Distance b) {
 	return i;
 }
 
-void predictKNN(vector<double> test, vector<ID> data, int k) {
+string predictKNN(vector<double> test, vector<ID> data, int k) {
 	vector<Distance> Table;
 	ID id;
 	id.setScore(test);
@@ -57,4 +57,5 @@ void predictKNN(vector<double> test, vector<ID> data, int k) {
 		}
 	}
 	cout << "c'est " << Personne << " !" << endl;
+	return Personne;
 }

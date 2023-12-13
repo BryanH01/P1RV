@@ -12,4 +12,4 @@ struct Distance
 
 bool inferieur(Distance a, Distance b);
 
-void predictKNN(vector<double> test, vector<ID> data, int k);
+string predictKNN(vector<double> test, vector<ID> data, int k);

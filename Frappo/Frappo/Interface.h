@@ -9,6 +9,5 @@
 using namespace sf;
 using namespace std;
 
-void affiche();
+void afficheTexte(bool* enCours);
 Font getFont(string name);
-Text toText(string text);

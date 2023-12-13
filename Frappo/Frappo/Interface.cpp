@@ -7,6 +7,9 @@
 
 const string ARIAL = "Arial.ttf";
 const string FIXEDSYS = "FSEX302.ttf";
+const string TEXTE = "livre2.txt";
+const int LEN_TEXTE = 460;
+const int LEN_TEST = 10;
 
 
 string removeLast(string p) {
@@ -29,7 +32,7 @@ string formatText(string text, int maxLength = 60) {
     for (char& c : text) {
         compt += 1;
         if (c == ' ') {
-            if (compt > 60) {
+            if (compt > maxLength) {
                 newText += "\n" + word;
                 compt = 0;
             } else {
@@ -45,31 +48,25 @@ string formatText(string text, int maxLength = 60) {
     return newText;
 }
 
-Text toText(string tex) {
-    Font font = getFont(ARIAL);
-    Text text;
-    // select the font
-    text.setFont(font); // font is a sf::Font
-
-    // set the string to display
-    text.setString(tex);
-
-    // set the character size
-    text.setCharacterSize(24); // in pixels, not points!
-
-    // set the color
-    text.setFillColor(sf::Color::Red);
-
-    // set the text style
-    text.setStyle(sf::Text::Bold | sf::Text::Underlined);
-    text.setPosition(100, 100);
-    return text;
+string copyFormatText(string text, string ref) {
+    string newText;
+    for (int i = 0; i < text.size(); i++) {
+        if (text[i] == ' ' and ref[i] == '\n') {
+            newText += '\n';
+        }
+        else {
+            newText += text[i];
+        }
+    }
+    return newText;
 }
 
-void affiche() {
+
+void afficheTexte(bool* enCours) {
     RenderWindow window(VideoMode(1600,900), "My window");
     //RenderWindow window(sf::VideoMode(1000,1000), "My window");
-    string texte = readFileFrom("livre.txt", 2, 10);
+    srand(time(NULL));
+    string texte = readFileFrom(TEXTE, rand()%LEN_TEXTE, LEN_TEST);
 
     Text text;
     Font font = getFont(FIXEDSYS);
@@ -99,8 +96,7 @@ void affiche() {
     string touche = "";
     string lastTouche = "";
 
-    while (window.isOpen())
-    {
+    while (window.isOpen()) {
         // inside the main loop, between window.clear() and window.display()
         window.clear();
         window.draw(text);
@@ -145,7 +141,7 @@ void affiche() {
             } else {
                 text3.setFillColor(Color::Red);
             }
-            text3.setString(formatText(entree));
+            text3.setString(copyFormatText(entree,text2.getString()));
             
             //cout << touche + lastTouche << endl;
         }
@@ -153,6 +149,7 @@ void affiche() {
             window.close();
         }
     }
+    *enCours = false;
     std::cout << string(text3.getString());
 }
 

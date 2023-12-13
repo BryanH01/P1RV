@@ -11,6 +11,8 @@
 
 using namespace std;
 
+
+// DEPRECATED
 void test() {
 
 
@@ -51,18 +53,17 @@ void test() {
     }
 }
 
-void mesure(vector<double>* DT, vector<double>* FT) {
-    cout << "Appuyez sur 'Entrée' pour terminer la mesure" << endl;
-    ShellExecute(0, 0, L"https://www.ratatype.fr/typing-test/", 0, 0, SW_SHOW);
+void mesure(vector<double>* DT, vector<double>* FT, bool* enCours) {
+    //cout << "Appuyez sur 'Entrée' pour terminer la mesure" << endl;
+    //ShellExecute(0, 0, L"https://www.ratatype.fr/typing-test/", 0, 0, SW_SHOW);
 
     auto start = std::chrono::high_resolution_clock::now();
     vector<int> touches;
     vector<std::chrono::time_point<std::chrono::high_resolution_clock>> temps;
-    bool enCours = true;
 
-    while (enCours) {
+    while (*enCours) {
         if (GetAsyncKeyState(13) & 0x8000) { // Entrée, arrête la mesure
-            enCours = false;
+            *enCours = false;
         }
         for (int i = 32; i < 256; ++i) {
             if (i != 160 && i != 162 && i != 164 && i != 165)
