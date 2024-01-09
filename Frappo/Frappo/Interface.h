@@ -4,10 +4,13 @@
 #include <SFML/Graphics/Font.hpp>
 #include <SFML/Graphics/Text.hpp>
 #include <SFML/Window/Window.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
 
 
 using namespace sf;
 using namespace std;
 
-void afficheTexte(bool* enCours);
+string getLogin(RenderWindow* window);
+float afficheTexte(bool* enCours, RenderWindow* window);
+float afficherTexte(bool* enCours);
 Font getFont(string name);

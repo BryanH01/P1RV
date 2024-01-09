@@ -13,21 +13,91 @@ const int LEN_TEXTE = 460;
 const int LEN_TEST = 10;
 
 
-void afficheTexte(bool* enCours) {
-    RenderWindow window(VideoMode(1600,900), "My window");
-    //RenderWindow window(sf::VideoMode(1000,1000), "My window");
+string getLogin(RenderWindow* window) {
+    Text text;
+    Font font = getFont(FIXEDSYS);
+
+    Text text2;
+    text2.setString("Nom : ");
+    text2.setFont(font);
+    text2.setCharacterSize(36); // in pixels, not points!
+    text2.setFillColor(Color::White);
+    text2.setStyle(Text::Regular);
+    text2.setPosition(sf::Vector2f(200, 300));
+
+    string entree = "";
+    Text text3 = text2;
+    text3.setString("");
+    text3.setFillColor(Color::White);
+    text3.setPosition(sf::Vector2f(300, 300));
+
+    string touche = "";
+    string lastTouche = "";
+    window->setActive(true);
+    while (window->isOpen()) {
+        // inside the main loop, between window->clear() and window->display()
+        window->clear();
+        //window->draw(text);
+
+        window->draw(text2);
+        window->draw(text3);
+        window->display();
+        // check all the window's events that were triggered since the last iteration of the loop
+        sf::Event event;
+        while (window->pollEvent(event))
+        {
+            // "close requested" event: we close the window
+            if (event.type == sf::Event::Closed)
+                window->close();
+        }
+        if (event.type == Event::TextEntered) {
+            if (event.text.unicode) {
+                //std::cout << "     ASCII character typed:      " << static_cast<char>(event.text.unicode) << event.text.unicode << std::endl;
+                if (event.text.unicode == 8) {
+                    touche = "backspace";
+                } else if (event.text.unicode == 13) {
+                    touche = "return";
+                } else {
+                    touche = static_cast<char>(event.text.unicode);
+                }
+            }
+        }
+        else {
+            if (lastTouche == "return") {
+                //window->setActive(false);
+                window->close();
+                break;
+            }
+            lastTouche = "";
+            touche = "";
+        }
+        if (touche != lastTouche) {
+            
+            lastTouche = touche;
+            if (touche == "backspace") {
+                entree = removeLast(entree);
+            } else if(touche != "return") {
+                entree += touche;
+            }
+            text3.setString(entree);
+        }
+    }
+    return entree;
+}
+
+float afficherTexte(bool* enCours) {
+    RenderWindow window(VideoMode(1600, 900), "My window");
+    return afficheTexte(enCours, &window);
+}
+
+float afficheTexte(bool* enCours, RenderWindow* window) {
+    //RenderWindow window(VideoMode(1600,900), "My window");
     srand(time(NULL));
     string texte = readFileFrom(TEXTE, rand()%LEN_TEXTE, LEN_TEST);
 
     Text text;
     Font font = getFont(FIXEDSYS);
 
-    // Text
-    text.setString("Hello");
-    text.setFont(font);
-    text.setCharacterSize(36); // in pixels, not points!
-    text.setFillColor(sf::Color::Red);
-    text.setStyle(sf::Text::Bold | sf::Text::Underlined);
     Text text2;
     text2.setString(formatText(texte));
     //cout << formatText(texte) << endl;
@@ -35,7 +105,7 @@ void afficheTexte(bool* enCours) {
     text2.setCharacterSize(36); // in pixels, not points!
     text2.setFillColor(Color(127,127,127));
     text2.setStyle(Text::Regular);
-    FloatRect rc = text2.getLocalBounds();
+    //FloatRect rc = text2.getLocalBounds();
     //text2.setOrigin(rc.width / 2, rc.height / 2);
     text2.setPosition(sf::Vector2f(200, 300));
 
@@ -46,26 +116,28 @@ void afficheTexte(bool* enCours) {
 
     string touche = "";
     string lastTouche = "";
+    int backspaceNb = 0;
 
-    while (window.isOpen()) {
-        // inside the main loop, between window.clear() and window.display()
-        window.clear();
-        window.draw(text);
+    window->setActive(true);
+    while (window->isOpen()) {
+        // inside the main loop, between window->clear() and window->display()
+        window->clear();
+        //window->draw(text);
         
-        window.draw(text2);
-        window.draw(text3);
-        window.display();
+        window->draw(text2);
+        window->draw(text3);
+        window->display();
         // check all the window's events that were triggered since the last iteration of the loop
         sf::Event event;
-        while (window.pollEvent(event))
+        while (window->pollEvent(event))
         {
             // "close requested" event: we close the window
             if (event.type == sf::Event::Closed)
-                window.close();
+                window->close();
         }
         if (event.type == Event::TextEntered) {
             if (event.text.unicode) {
-                //std::cout << "ASCII character typed: " << static_cast<char>(event.text.unicode) << event.text.unicode << std::endl;
+                std::cout << "ASCII character typed: " << static_cast<char>(event.text.unicode) << event.text.unicode << std::endl;
                 if (event.text.unicode == 8) {
                     touche = "backspace";
                 }
@@ -83,6 +155,7 @@ void afficheTexte(bool* enCours) {
             lastTouche = touche;
             if (touche == "backspace") {
                 entree = removeLast(entree);
+                backspaceNb++;
             } else {
                 entree += touche;
             }
@@ -93,13 +166,13 @@ void afficheTexte(bool* enCours) {
                 text3.setFillColor(Color::Red);
             }
             text3.setString(copyFormatText(entree,text2.getString()));
-            
             //cout << touche + lastTouche << endl;
         }
         if (entree == texte or !*enCours) {
-            window.close();
+            window->close();
         }
     }
     *enCours = false;
     std::cout << string(text3.getString());
+    return float(backspaceNb) / float(texte.size()) * 100;
 }
