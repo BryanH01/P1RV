@@ -36,7 +36,6 @@
 x64/
 Debug/
 *.filters
-*.vcxproj
 *.user
 
 #others
