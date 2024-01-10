@@ -30,15 +30,7 @@ vector<ID> readData() {
     }
     file.close();
 
-    /*for (vector<ID>::iterator it = data.begin(); it != data.end(); it++) {
-        cout << it->personne << endl;
-        for (vector<double>::iterator ite = it->score.begin(); ite != it->score.end(); ite++) {
-            cout << *ite << ' ';
-        }
-    }*/
-
     return data;
-
 }
 
 void addData(ID id) {
