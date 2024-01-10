@@ -10,7 +10,7 @@ const string ARIAL = "Arial.ttf";
 const string FIXEDSYS = "fixedsys.ttf";
 const string TEXTE = "livre2.txt";
 const int LEN_TEXTE = 460;
-const int LEN_TEST = 10;
+const int LEN_TEST = 120;
 
 int intro() {
     int mode = 0;
