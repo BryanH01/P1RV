@@ -238,7 +238,6 @@ string getLogin(RenderWindow* window) {
     while (window->isOpen()) {
         // inside the main loop, between window->clear() and window->display()
         window->clear();
-        //window->draw(text);
 
         window->draw(text2);
         window->draw(text3);
@@ -253,7 +252,6 @@ string getLogin(RenderWindow* window) {
         }
         if (event.type == Event::TextEntered) {
             if (event.text.unicode) {
-                //std::cout << "     ASCII character typed:      " << static_cast<char>(event.text.unicode) << event.text.unicode << std::endl;
                 if (event.text.unicode == 8) {
                     touche = "backspace";
                 } else if (event.text.unicode == 13) {
@@ -265,7 +263,6 @@ string getLogin(RenderWindow* window) {
         }
         else {
             if (lastTouche == "return") {
-                //window->setActive(false);
                 window->close();
                 break;
             }
@@ -292,7 +289,6 @@ float afficherTexte(bool* enCours) {
 }
 
 float afficheTexte(bool* enCours, RenderWindow* window) {
-    //RenderWindow window(VideoMode(1600,900), "My window");
     srand(time(NULL));
     string texte = readFileFrom(TEXTE, rand()%LEN_TEXTE, LEN_TEST);
 
@@ -301,13 +297,10 @@ float afficheTexte(bool* enCours, RenderWindow* window) {
 
     Text text2;
     text2.setString(formatText(texte));
-    //cout << formatText(texte) << endl;
     text2.setFont(font);
     text2.setCharacterSize(36); // in pixels, not points!
     text2.setFillColor(Color(127,127,127));
     text2.setStyle(Text::Regular);
-    //FloatRect rc = text2.getLocalBounds();
-    //text2.setOrigin(rc.width / 2, rc.height / 2);
     text2.setPosition(sf::Vector2f(200, 300));
 
     string entree = "";
@@ -323,7 +316,6 @@ float afficheTexte(bool* enCours, RenderWindow* window) {
     while (window->isOpen()) {
         // inside the main loop, between window->clear() and window->display()
         window->clear();
-        //window->draw(text);
         
         window->draw(text2);
         window->draw(text3);
@@ -345,14 +337,12 @@ float afficheTexte(bool* enCours, RenderWindow* window) {
                 else {
                 touche = static_cast<char>(event.text.unicode);
                 }
-                //cout << touche << endl;
             }
         } else {
             lastTouche = "";
             touche = "";
         }
         if (touche != lastTouche) {
-            //cout << touche + lastTouche << endl;
             lastTouche = touche;
             if (touche == "backspace") {
                 entree = removeLast(entree);
@@ -367,7 +357,6 @@ float afficheTexte(bool* enCours, RenderWindow* window) {
                 text3.setFillColor(Color::Red);
             }
             text3.setString(copyFormatText(entree,text2.getString()));
-            //cout << touche + lastTouche << endl;
         }
         if (entree == texte or !*enCours) {
             window->close();

@@ -23,7 +23,6 @@ void test() {
     while (true) {
 
         for (int i = 0; i < 256; ++i) {
-            //if (i != 160 && i != 162 && i != 164 && i != 165)
             if (GetAsyncKeyState(i) & 0x8000) {
                 // Enregistrez la touche actuelle qui est enfoncée
                 cout << "touche : " << i << endl;
@@ -54,9 +53,6 @@ void test() {
 }
 
 void mesure(vector<double>* DT, vector<double>* FT, bool* enCours) {
-    //cout << "Appuyez sur 'Entrée' pour terminer la mesure" << endl;
-    //ShellExecute(0, 0, L"https://www.ratatype.fr/typing-test/", 0, 0, SW_SHOW);
-
     auto start = std::chrono::high_resolution_clock::now();
     vector<int> touches;
     vector<std::chrono::time_point<std::chrono::high_resolution_clock>> temps;
@@ -77,7 +73,6 @@ void mesure(vector<double>* DT, vector<double>* FT, bool* enCours) {
                     auto end = std::chrono::high_resolution_clock::now();
                     // Calculez le FT
                     double ft = std::chrono::duration<double, milli>(end - start).count();
-                    // cout << "Temps entre les touches (FT) : " << ft << " ms" << endl;
                     FT->push_back(ft);
                     temps.push_back(end);
                     start = std::chrono::high_resolution_clock::now();
@@ -90,7 +85,6 @@ void mesure(vector<double>* DT, vector<double>* FT, bool* enCours) {
                 auto end = std::chrono::high_resolution_clock::now();
                 touches.erase(touches.begin() + i);
                 double dt = std::chrono::duration<double, milli>(end - temps[i]).count();
-                // cout << "Temps d'appui (DT) : " << dt << " ms" << endl;
                 DT->push_back(dt);
                 temps.erase(temps.begin() + i);
             }

@@ -17,5 +17,3 @@ public :
 	std::vector<double> getScore();
 	std::string getPersonne();
 };
-
-//ostream& operator<<(ostream& os, const ID& id);

@@ -42,12 +42,3 @@ vector<double> ID::getScore() {
 string ID::getPersonne() {
 	return personne;
 }
-
-//ostream& operator<<(ostream& os, ID& id) {
-//	os << id.getPersonne() << ' ';
-//	for (int i = 0; i < id.getScore().size(); i++) {
-//		os << id.getScore()[i] << ' ';
-//	}
-//	os << endl;
-//	return os;
-//}
