@@ -7,11 +7,212 @@
 #include "Utils.h"
 
 const string ARIAL = "Arial.ttf";
-const string FIXEDSYS = "FSEX302.ttf";
+const string FIXEDSYS = "fixedsys.ttf";
 const string TEXTE = "livre2.txt";
 const int LEN_TEXTE = 460;
 const int LEN_TEST = 10;
 
+int intro() {
+    int mode = 0;
+
+    Font font;
+    if (!font.loadFromFile(FIXEDSYS))
+    {
+        // error...
+        cout << "fail to load le font" << endl;
+    }
+    vector<Text> v;
+
+    RenderWindow window(VideoMode(1600, 900), "SFML");
+
+    Text text;
+    text.setFont(font);
+    text.setString("Frappologie");
+    text.setCharacterSize(36);
+    text.setFillColor(Color::White);
+    text.setStyle(Text::Bold);
+    text.setPosition(750, 300);
+
+    Text e;
+    e.setFont(font);
+    e.setString("Enregistrer");
+    e.setCharacterSize(30);
+    e.setFillColor(Color::White);
+    e.setStyle(Text::Bold);
+    e.setPosition(350, 500);
+
+    Text t;
+    t.setFont(font);
+    t.setString("Tester");
+    t.setCharacterSize(30);
+    t.setFillColor(Color::White);
+    t.setStyle(Text::Bold);
+    t.setPosition(1150, 500);
+
+    while (window.isOpen())
+    {
+        window.clear(Color::Black);
+
+        window.draw(text);
+        window.draw(t);
+        window.draw(e);
+
+        window.display();
+
+        Event event;
+        Vector2i mouse = Mouse::getPosition(window);
+        while (window.pollEvent(event))
+        {
+            switch (event.type) {
+            case Event::Closed:
+                window.close();
+                break;
+            case Event::MouseButtonPressed:
+                if ((mode == 0) && (isE(mouse.x, mouse.y))) {
+                    mode = 1;
+                    window.close();
+                }
+                if ((mode == 0) && (isI(mouse.x, mouse.y))) {
+                    mode = 2;
+                    window.close();
+                }
+                break;
+            default:
+                break;
+            }
+        }
+    }
+
+    return mode;
+}
+
+bool isE(int x, int y) {
+    if ((250 < x) && (x < 550) && (450 < y) && (y < 550)) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+bool isI(int x, int y) {
+    if ((1050 < x) && (x < 1350) && (450 < y) && (y < 550)) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+void finiE() {
+    Font font;
+    if (!font.loadFromFile(FIXEDSYS))
+    {
+        // error...
+        cout << "fail to load le font" << endl;
+    }
+    vector<Text> v;
+    RenderWindow window(VideoMode(1600, 900), "SFML");
+
+    Text text;
+    text.setFont(font);
+    text.setString("Fin d'enregistrement");
+    text.setCharacterSize(36);
+    text.setFillColor(Color::White);
+    text.setStyle(Text::Bold);
+    text.setPosition(600, 300);
+
+    Text e;
+    e.setFont(font);
+    e.setString("Rentrer");
+    e.setCharacterSize(30);
+    e.setFillColor(Color::White);
+    e.setStyle(Text::Bold);
+    e.setPosition(1150, 500);
+
+    while (window.isOpen())
+    {
+        window.clear(Color::Black);
+
+        window.draw(text);
+        window.draw(e);
+
+        window.display();
+
+        Event event;
+        Vector2i mouse = Mouse::getPosition(window);
+        while (window.pollEvent(event))
+        {
+            switch (event.type) {
+            case Event::Closed:
+                window.close();
+                break;
+            case Event::MouseButtonPressed:
+                if (isI(mouse.x, mouse.y)) {
+                    window.close();
+                }
+                break;
+            default:
+                break;
+            }
+        }
+    }
+}
+
+void finiI(string nom) {
+    Font font;
+    if (!font.loadFromFile(FIXEDSYS))
+    {
+        // error...
+        cout << "fail to load le font" << endl;
+    }
+    vector<Text> v;
+    RenderWindow window(VideoMode(1600, 900), "SFML");
+
+    Text text;
+    text.setFont(font);
+    text.setString("C'est " + nom + ".");
+    text.setCharacterSize(36);
+    text.setFillColor(Color::White);
+    text.setStyle(Text::Bold);
+    text.setPosition(600, 300);
+
+    Text e;
+    e.setFont(font);
+    e.setString("Rentrer");
+    e.setCharacterSize(30);
+    e.setFillColor(Color::White);
+    e.setStyle(Text::Bold);
+    e.setPosition(1150, 500);
+
+    while (window.isOpen())
+    {
+        window.clear(Color::Black);
+
+        window.draw(text);
+        window.draw(e);
+
+        window.display();
+
+        Event event;
+        Vector2i mouse = Mouse::getPosition(window);
+        while (window.pollEvent(event))
+        {
+            switch (event.type) {
+            case Event::Closed:
+                window.close();
+                break;
+            case Event::MouseButtonPressed:
+                if (isI(mouse.x, mouse.y)) {
+                    window.close();
+                }
+                break;
+            default:
+                break;
+            }
+        }
+    }
+}
 
 string getLogin(RenderWindow* window) {
     Text text;
