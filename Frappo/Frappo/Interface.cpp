@@ -330,7 +330,6 @@ float afficheTexte(bool* enCours, RenderWindow* window) {
         }
         if (event.type == Event::TextEntered) {
             if (event.text.unicode) {
-                std::cout << "ASCII character typed: " << static_cast<char>(event.text.unicode) << event.text.unicode << std::endl;
                 if (event.text.unicode == 8) {
                     touche = "backspace";
                 }
@@ -363,6 +362,5 @@ float afficheTexte(bool* enCours, RenderWindow* window) {
         }
     }
     *enCours = false;
-    std::cout << string(text3.getString());
     return float(backspaceNb) / float(texte.size()) * 100;
 }

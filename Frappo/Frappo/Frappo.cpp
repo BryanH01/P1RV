@@ -7,7 +7,6 @@ void Enregistrement() {
 	string name;
 	RenderWindow window(VideoMode(1600, 900), "My window");
 	name = getLogin(&window);
-	cout << "ça passe ;(";
 	vector<double> DT, FT;
 	bool enCours = true;
 	thread t1(mesure, &DT, &FT, &enCours);

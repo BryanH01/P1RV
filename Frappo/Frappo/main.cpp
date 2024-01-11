@@ -1,11 +1,4 @@
-#include "intro.h"
-#include "Interface.h"
 #include "Frappo.h"
-#include "FileHandler.h"
-#include "fini.h"
-
-#include <thread>
-#include <future>
 
 int main() {
 	
